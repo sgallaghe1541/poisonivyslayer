@@ -1,0 +1,33 @@
+@import "tailwindcss" source("../");
+
+@theme {
+    --grid-template-columns-main: 300px 1fr 300px;
+    --grid-template-columns-lsidebar: 250px 50px;
+    --grid-template-columns-rsidebar: 50px 250px;
+    --grid-template-rows-content: 50px 50px 1fr 50px;
+}
+
+@layer base {
+    h1 {
+	font-size: var(--text-3xl);
+	text-align: center;
+	font-weight: 700;
+    }
+    h2 {
+	font-size: var(--text-xl);
+	text-align: center;
+	font-weight: 600;
+    }
+    h3 {
+	font-size: var(--text-lg);
+	text-align: center;
+	font-weight: 500;
+    }
+    p {
+	margin-top: 20px;
+    }
+    ul {
+	list-style-type: disc;
+	margin: calc(var(--spacing) * 8);
+    }
+}
