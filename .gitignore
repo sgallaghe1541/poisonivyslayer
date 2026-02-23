@@ -1,2 +1,6 @@
 temp/
 tailwindcss
+bin/
+certs/
+dynamic/
+letsencrypt/

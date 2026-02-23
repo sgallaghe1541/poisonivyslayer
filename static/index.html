@@ -4,10 +4,11 @@
       <meta charset="UTF-8"></meta>
       <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0"></meta>
       <script src="/static/js/htmx.min.js"></script>
+      <script src="https://unpkg.com/hyperscript.org@0.9.14"></script> 
       <link href="/static/css/out.css" rel="stylesheet"/>
     </head>
     <body>
-      <div class="grid grid-cols-main grid-rows-1 w-screen h-screen max-w-screen max-h-screen">
+      <div id="main" class="grid grid-cols-main grid-rows-1 w-screen h-screen max-w-screen max-h-screen bg-whte">
         <div id="sidebar-l" class="grid grid-cols-lsidebar items-center col-start-1 col-span-1 row-start-1 row-span-1 
 	   bg-[url(/img/borderl.png)] bg-cover bg-right">
 	  <svg id="prev" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" 
@@ -16,21 +17,40 @@
 	    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
 	  </svg>
 	</div>
-	<div id="content" class="grid grid-cols-1 grid-rows-content col-start-2 col-span-1 row-start-1 row-span-1 w-full bg-white">
-	  <div id="content-header" class="col-start-1 row-start-1 row-span-1">
+	<div id="content" class="grid grid-cols-1 grid-rows-content col-start-2 col-span-1 row-start-1 row-span-1 w-full">
+	  <div id="content-header" class="grid grid-cols-header col-start-1 row-start-1 row-span-1 w-full p-4">
+	    <div id="table-contents" class="flex col-start-1 col-span-1 items-center flex-row flex-none gap-x-2 h-10 w-fit p-2 rounded-full group hover:cursor-pointer hover:bg-amber-100"
+	      hx-get="/handbook/table_of_contents/" hx-target="#main" hx-swap="afterend">
+	      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" 
+		  class="size-6 group-hover:stroke-amber-800">
+		<path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
+	      </svg> 
+	      <p class="text-white scale-0 group-hover:scale-100 group-hover:text-amber-800">Table of Contents</p>
+	    </div>
+	    <a href="/download/poison_ivy_slayers_handbook_second_edition.pdf" class="flex col-start-3 col-span-1" download>
+	    <div id="get-book" class="flex items-center flex-row-reverse flex-none gap-x-2 h-10 w-fit p-2 rounded-full group hover:cursor-pointer hover:bg-amber-100">
+	      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" 
+		  class="size-6 group-hover:stroke-amber-800">
+		<path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+	      </svg>
+	      <p class="text-white scale-0 group-hover:scale-100 group-hover:text-amber-800">Get Book</p>
+	    </div>
+	    </a>
 	  </div>
 	  <div id="content-title" class="col-start-1 row-start-2 row-span-1">
 	  </div>
-	  <div id="content-body" class="col-start-1 row-start-3 row-span-1 p-4 max-h-full overflow-auto [mask-image:linear-gradient(0deg,transparent_0%,#000_10%,#000_90%,transparent_100%)]">
-	  <br>
-	  <h1>The Poison Ivy Slayer's Handbook</h1>
-	  <h2>by Bland Pseudonym</h2>
-	  <h3>Second Edition</h3>
-	  <br>
-	  <br>
-	  <p class="text-center">Copyright 2024 by the author<br>Permission is hereby granted to make unmodified copies of this entire document and distribute them.<br>All other rights reserved.<br>Dedicated to my father. If you keep reading, you'll find out why.<br></p>
+	  <div id="content-body" class="grid grid-cols-2 gap-6 col-start-1 row-start-3 row-span-1 p-4 max-h-full overflow-auto scrollbar-hidden [mask-image:linear-gradient(0deg,transparent_0%,#000_10%,#000_100%,transparent_100%)]">
+	    <div class="col-span-2">
+	      <br>
+	      <h1>The Poison Ivy Slayer's Handbook</h1>
+	      <h2>by Bland Pseudonym</h2>
+	      <h3>Second Edition</h3>
+	      <br>
+	      <br>
+	      <p class="text-center">Copyright 2024 by the author<br>Permission is hereby granted to make unmodified copies of this entire document and distribute them.<br>All other rights reserved.<br>Dedicated to my father. If you keep reading, you'll find out why.<br></p>
+	    </div>
 	  </div>
-	  <div id="content-footer" class="col-start-1 row-start-3 row-span-1">
+	  <div id="content-footer" class="col-start-1 row-start-4 row-span-1">
 	  </div>
 	</div>
         <div id="sidebar-r" class="grid grid-cols-rsidebar items-center col-start-3 col-span-1 row-start-1 row-span-1

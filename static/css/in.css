@@ -1,33 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
 @import "tailwindcss" source("../");
 
 @theme {
     --grid-template-columns-main: 300px 1fr 300px;
     --grid-template-columns-lsidebar: 250px 50px;
     --grid-template-columns-rsidebar: 50px 250px;
-    --grid-template-rows-content: 50px 50px 1fr 50px;
+    --grid-template-columns-header: minmax(max-content, max-content) 1fr minmax(max-content, max-content);
+    --grid-template-rows-content: 50px minmax(50px, max-content) 1fr 50px;
 }
 
 @layer base {
     h1 {
-	font-size: var(--text-3xl);
+	font-size: var(--text-5xl);
 	text-align: center;
 	font-weight: 700;
+	font-family: "Permanent Marker";
     }
     h2 {
 	font-size: var(--text-xl);
 	text-align: center;
 	font-weight: 600;
+	font-family: "Quicksand";
     }
     h3 {
-	font-size: var(--text-lg);
+	font-size: var(--text-4xl);
 	text-align: center;
 	font-weight: 500;
+	font-family: "Permanent Marker";
     }
     p {
-	margin-top: 20px;
+	font-family: "Quicksand";
     }
     ul {
 	list-style-type: disc;
 	margin: calc(var(--spacing) * 8);
     }
+    img {
+	max-width: 75%;
+	border-radius: var(--radius-lg);
+	place-self: center;
+    }
+}
+
+@utility scrollbar-hidden {
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }

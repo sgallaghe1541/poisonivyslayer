@@ -1,0 +1,67 @@
+services:
+  traefik:
+    image: traefik:v3.6
+    container_name: traefik
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - proxy
+    command:
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--providers.docker.network=proxy"
+      - "--providers.file.directory=/etc/traefik/dynamic"
+      - "--entryPoints.web.address=:80"
+      - "--entryPoints.websecure.address=:443"
+      - "--entryPoints.websecure.http.tls=true"
+      - "--entryPoints.web.http.redirections.entryPoint.to=websecure"
+      - "--entryPoints.web.http.redirections.entryPoint.scheme=https"
+
+      # Let's Encrypt configuration
+      - "--certificatesresolvers.le.acme.email=sgallaghe1541@gmail.com"
+      - "--certificatesresolvers.le.acme.storage=/letsencrypt/acme.json"
+      - "--certificatesresolvers.le.acme.httpchallenge.entrypoint=web"
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "./certs:/certs:ro"
+      - "./dynamic:/etc/traefik/dynamic:ro"
+      - "./letsencrypt:/letsencrypt"
+
+  poisonivyslayer:
+    image: poisonivyslayer
+    container_name: poisonivyslayer
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges
+    networks:
+      - proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.poisonivyslayer.rule=Host(`poisonivyslayer.localhost`)"
+      - "traefik.http.routers.poisonivyslayer.entrypoints=websecure"
+      - "traefik.http.routers.poisonivyslayer.tls=true"
+      - "traefik.http.routers.poisonivyslayer.tls.certresolver=le"
+
+      # Secure Headers Middleware
+      - "traefik.http.middlewares.secure-headers.headers.frameDeny=true"
+      - "traefik.http.middlewares.secure-headers.headers.sslRedirect=true"
+      - "traefik.http.middlewares.secure-headers.headers.browserXssFilter=true"
+      - "traefik.http.middlewares.secure-headers.headers.contentTypeNosniff=true"
+      - "traefik.http.middlewares.secure-headers.headers.stsIncludeSubdomains=true"
+      - "traefik.http.middlewares.secure-headers.headers.stsPreload=true"
+      - "traefik.http.middlewares.secure-headers.headers.stsSeconds=31536000"
+    
+      # IP Allowlist Middleware
+      #- "traefik.http.middlewares.ip-allowlist.ipallowlist.sourceRange=127.0.0.1/32,192.168.0.0/16,10.0.0.0/8"
+    
+      # Apply middlewares to whoami router
+      - "traefik.http.routers.poisonivyslayer.middlewares=secure-headers"
+
+networks:
+  proxy:
+    name: proxy
