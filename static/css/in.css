@@ -4,8 +4,11 @@
 
 @theme {
     --grid-template-columns-main: 300px 1fr 300px;
+    --grid-template-columns-mainsmall: 100px 1fr 100px;
     --grid-template-columns-lsidebar: 250px 50px;
+    --grid-template-columns-lsidebarsmall: 100px 50px;
     --grid-template-columns-rsidebar: 50px 250px;
+    --grid-template-columns-rsidebarsmall: 50px 100px;
     --grid-template-columns-header: minmax(max-content, max-content) 1fr minmax(max-content, max-content);
     --grid-template-rows-content: 50px minmax(50px, max-content) 1fr 50px;
 }
